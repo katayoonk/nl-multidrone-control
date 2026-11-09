@@ -3,7 +3,7 @@
 ## Live page
 
 - Overview site: https://katayoonk.github.io/nl-multidrone-control/
-- Academic page: https://katayoonk.github.io/nl-multidrone-control/academic.html
+- Project page: https://katayoonk.github.io/nl-multidrone-control/project.html
 
 Repo: https://github.com/katayoonk/nl-multidrone-control
 
