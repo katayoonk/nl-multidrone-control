@@ -377,10 +377,12 @@ h2 {
   background: #0c1410;
 }
 
-.video-shell video {
+.video-shell .teaser {
   aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   background: #0c1410;
-  object-fit: contain;
 }
 
 .video-meta {
