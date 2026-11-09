@@ -1,5 +1,11 @@
 # Internal project page
 
+## Live page
+
+https://katayoonk.github.io/nl-multidrone-control/
+
+Repo: https://github.com/katayoonk/nl-multidrone-control
+
 Static project page for the natural-language multi-drone control work.
 Content tracks `PROJECT_OVERVIEW.md`.
 
