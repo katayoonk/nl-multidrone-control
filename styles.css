@@ -267,6 +267,21 @@ h2 {
   font-size: 1.05rem;
 }
 
+.architecture {
+  margin: 0 0 42px;
+}
+
+.architecture img {
+  border: 1px solid var(--line);
+  background: #0b1120;
+}
+
+.architecture figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

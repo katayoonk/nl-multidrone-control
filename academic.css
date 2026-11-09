@@ -88,6 +88,24 @@ li {
   margin: 8px 0;
 }
 
+.architecture {
+  margin: 18px 0 8px;
+}
+
+.architecture img {
+  display: block;
+  width: 100%;
+  border: 1px solid #ddd;
+  background: #0b1120;
+}
+
+.architecture figcaption {
+  margin-top: 10px;
+  color: #555;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
 .pipeline {
   margin: 18px auto;
   padding: 18px 22px;
