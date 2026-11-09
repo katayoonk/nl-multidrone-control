@@ -127,11 +127,31 @@ li {
   background: #111;
 }
 
-.media .teaser {
+.media video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #111;
+}
+
+.gif-figure {
+  margin: 22px 0 8px;
+}
+
+.gif-figure img {
   display: block;
   width: 100%;
   height: auto;
+  border: 1px solid #ddd;
   background: #111;
+}
+
+.gif-figure figcaption {
+  margin-top: 10px;
+  color: #555;
+  font-size: 0.92rem;
+  text-align: center;
 }
 
 .caption {

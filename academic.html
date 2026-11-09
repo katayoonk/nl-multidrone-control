@@ -23,10 +23,12 @@
         the existing flight stack.
       </p>
       <div class="media">
-        <img class="teaser" src="assets/teaser.gif" alt="Animated teaser from the two-drone field demonstration with the operator chat overlay">
+        <video controls playsinline preload="metadata" poster="assets/field-test-poster.jpg">
+          <source src="assets/field-test-demo.mp4" type="video/mp4">
+        </video>
       </div>
       <p class="caption center">
-        Full video on
+        Full video also on
         <a href="https://drive.google.com/file/d/1_zPsYfUP-ygMsipcDQyDrtAIv74Td3Dw/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive</a>.
       </p>
     </section>
@@ -62,6 +64,11 @@
         <figcaption><strong>Figure 1.</strong> End-to-end architecture. The language model issues MCP tool calls; the soter-agent safety gate admits or rejects them before ROS/PX4 execution.</figcaption>
       </figure>
 
+      <figure class="gif-figure">
+        <img src="assets/teaser.gif?v=2" alt="Animated clip of the two-drone field demonstration with operator chat overlay">
+        <figcaption><strong>Figure 2.</strong> Animated field-test clip (autoplaying GIF).</figcaption>
+      </figure>
+
       <pre class="pipeline" aria-label="System pipeline">Operator prompt
       ↓
 Python chat or Claude Desktop
@@ -73,7 +80,7 @@ Deterministic safety gate
 Existing ROS skills and behavior trees
       ↓
 PX4 / drone</pre>
-      <p class="caption center"><strong>Figure 2.</strong> Compact control pipeline.</p>
+      <p class="caption center"><strong>Figure 3.</strong> Compact control pipeline.</p>
 
       <h3>Interface capabilities</h3>
       <ul>
@@ -116,11 +123,11 @@ PX4 / drone</pre>
       <div class="image-row">
         <figure>
           <img src="assets/drone-0-camera.jpg" alt="Camera frame from drone 0 during the field experiment">
-          <figcaption><strong>Figure 3.</strong> Camera frame from drone 0.</figcaption>
+          <figcaption><strong>Figure 4.</strong> Camera frame from drone 0.</figcaption>
         </figure>
         <figure>
           <img src="assets/drone-1-camera.jpg" alt="Camera frame from drone 1 during the field experiment">
-          <figcaption><strong>Figure 4.</strong> Camera frame from drone 1.</figcaption>
+          <figcaption><strong>Figure 5.</strong> Camera frame from drone 1.</figcaption>
         </figure>
       </div>
     </section>
