@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Natural-Language Control for Multi-Drone Systems — academic project page.">
+  <title>Natural-Language Control for Multi-Drone Systems</title>
+  <link rel="stylesheet" href="academic.css">
+</head>
+<body>
+  <div class="page">
+    <header class="title-block">
+      <h1>Natural-Language Control for Multi-Drone Systems</h1>
+      <p class="subtitle">Operator language interface with typed MCP tools and a deterministic safety gate over ROS/PX4</p>
+      <p class="venue">Internal technical project page</p>
+      <p class="links">
+        <a href="PROJECT_OVERVIEW.pdf">PDF</a>
+        &nbsp;|&nbsp;
+        <a href="https://drive.google.com/file/d/1_zPsYfUP-ygMsipcDQyDrtAIv74Td3Dw/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Video</a>
+        &nbsp;|&nbsp;
+        <a href="https://github.com/katayoonk/nl-multidrone-control">Code</a>
+        &nbsp;|&nbsp;
+        <a href="index.html">Overview site</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Teaser</h2>
+      <p class="caption">
+        Field demonstration with two physical drones. Natural-language requests are
+        mapped to typed MCP tool calls, checked by a safety gate, and executed by
+        the existing flight stack.
+      </p>
+      <div class="media">
+        <video controls preload="metadata" poster="assets/field-test-poster.jpg">
+          <source src="assets/field-test-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p class="caption center">
+        Video also available on
+        <a href="https://drive.google.com/file/d/1_zPsYfUP-ygMsipcDQyDrtAIv74Td3Dw/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Abstract</h2>
+      <p>
+        This project explores a practical way to operate multiple drones through
+        natural-language instructions while keeping flight execution deterministic,
+        constrained, and auditable. An operator interacts through either a lightweight
+        Python chat interface or Claude Desktop. The language model interprets the
+        request and selects a typed drone capability exposed through the Model Context
+        Protocol (MCP). Before any command reaches a vehicle, a deterministic safety
+        gate checks the current drone state and the requested action. Approved commands
+        are forwarded to the existing ROS and flight-control stack; rejected commands
+        return a clear reason to the operator. The model therefore proposes
+        <em>what</em> should happen, while established drone software remains
+        responsible for <em>how</em> the vehicle flies.
+      </p>
+    </section>
+
+    <section>
+      <h2>Method</h2>
+      <p>
+        The system inserts a thin language and tool layer above an existing multi-drone
+        stack. The language model never generates motor commands or flight setpoints.
+        It selects a capability and supplies structured arguments; deterministic code
+        validates and executes the request.
+      </p>
+
+      <pre class="pipeline" aria-label="System pipeline">Operator prompt
+      ↓
+Python chat or Claude Desktop
+      ↓
+Typed MCP tool call
+      ↓
+Deterministic safety gate
+      ↓
+Existing ROS skills and behavior trees
+      ↓
+PX4 / drone</pre>
+      <p class="caption center"><strong>Figure 1.</strong> End-to-end control pipeline.</p>
+
+      <h3>Interface capabilities</h3>
+      <ul>
+        <li><strong>State.</strong> Read drone state and telemetry.</li>
+        <li><strong>Flight.</strong> Takeoff, landing, and return-to-launch.</li>
+        <li><strong>Motion.</strong> Relative movement forward, backward, left, right, up, and down by a requested distance; yaw by a requested angle.</li>
+        <li><strong>Camera.</strong> Gimbal pitch/yaw control, image capture, and continuous capture.</li>
+        <li><strong>Coordination.</strong> Point one drone toward another using relative positions (<code>look_at</code>).</li>
+        <li><strong>Missions.</strong> Start, monitor, and stop existing behavior-tree missions.</li>
+      </ul>
+
+      <h3>Safety gate</h3>
+      <p>
+        The gate checks conditions such as whether the drone is known and connected,
+        whether it is airborne when motion is requested, allowed movement and altitude
+        ranges, battery state, gimbal limits, and the configured operating fence.
+        Every request, gate decision, and result is logged.
+      </p>
+    </section>
+
+    <section>
+      <h2>Real-world experiment</h2>
+      <p>
+        The first experiment tested the complete system with two physical drones.
+        Commands were issued through the custom Python chat interface and through
+        Claude Desktop using the same MCP tool server. The demonstration covered
+        takeoff and landing, directional and vertical motion with specified distances,
+        camera pitch and yaw control, image capture, return-to-launch, and a
+        coordinated command in which one drone oriented itself and its camera toward
+        the other drone.
+      </p>
+      <p>
+        The experiment demonstrated that natural-language requests can be translated
+        into structured, executable drone actions without allowing the language model
+        to directly generate low-level flight commands. It also exercised the safety
+        path: commands that did not match the reported vehicle state could be rejected
+        before reaching the flight stack.
+      </p>
+
+      <div class="image-row">
+        <figure>
+          <img src="assets/drone-0-camera.jpg" alt="Camera frame from drone 0 during the field experiment">
+          <figcaption><strong>Figure 2.</strong> Camera frame from drone 0.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/drone-1-camera.jpg" alt="Camera frame from drone 1 during the field experiment">
+          <figcaption><strong>Figure 3.</strong> Camera frame from drone 1.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contributions</h2>
+      <ul>
+        <li>Reusable skill layer over existing ROS/PX4 drone interfaces.</li>
+        <li>Deterministic, configurable safety gate and JSONL audit log.</li>
+        <li>ROS service exposing gated skills through a single agent endpoint.</li>
+        <li>Host-side MCP server with typed schemas for each supported capability.</li>
+        <li>Python chat interface plus Claude Desktop / Claude Code integration.</li>
+        <li>Telemetry, camera capture, gimbal control, inter-drone <code>look_at</code>, and behavior-tree tools.</li>
+        <li>Reproducible agent container with rosbridge and required dependencies.</li>
+        <li>Validation in simulation and with a two-drone real-world experiment.</li>
+        <li>Token, prompt, and end-of-day agent-loop inspection tools for performance analysis.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Current status</h2>
+      <p>
+        The end-to-end architecture is operational in simulation and has been
+        demonstrated on two real drones. The current phase is focused on systematic
+        evaluation, efficiency, and additional safety and verification mechanisms.
+      </p>
+    </section>
+
+    <footer>
+      <p>Natural-Language Control for Multi-Drone Systems · Internal project page</p>
+    </footer>
+  </div>
+</body>
+</html>
