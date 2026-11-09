@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Natural-language control for multi-drone systems through gated MCP tools.">
+  <title>Natural-Language Control for Multi-Drone Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">NL Multi-Drone Control</a>
+    <nav aria-label="Page sections">
+      <a href="#approach">Approach</a>
+      <a href="#experiment">Experiment</a>
+      <a href="#progress">Progress</a>
+      <a href="#status">Status</a>
+    </nav>
+    <span class="internal">Internal</span>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Project introduction">
+      <div class="hero-backdrop" aria-hidden="true">
+        <img src="assets/field-test-poster.jpg" alt="">
+      </div>
+      <div class="hero-copy">
+        <p class="brand-mark">Multi-drone systems</p>
+        <h1>Natural-language control for multi-drone systems</h1>
+        <p class="lede">
+          Operators issue language requests. Typed MCP tools and a deterministic
+          safety gate turn them into constrained actions on the existing ROS/PX4 stack.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#experiment">Watch the field test</a>
+          <a class="button secondary" href="#approach">See the approach</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <p class="section-label">Overview</p>
+      <h2 id="overview-title">The model proposes. The gate checks. Flight software flies.</h2>
+      <p>
+        An operator works through a Python chat interface or Claude Desktop.
+        The language model selects a typed drone capability. Before any command
+        reaches a vehicle, a deterministic safety gate checks live state and
+        operating limits. Approved commands go to the existing ROS and flight-control
+        stack; rejected commands return a clear reason. Every request, decision,
+        and result is logged.
+      </p>
+    </section>
+
+    <section id="approach" class="section">
+      <div class="section-heading">
+        <p class="section-label">Approach</p>
+        <h2>A thin language layer over a trusted drone stack</h2>
+        <p>
+          The language model never generates motor commands or flight setpoints.
+          It selects a capability and supplies structured arguments; deterministic
+          code validates and executes the request.
+        </p>
+      </div>
+
+      <ol class="pipeline" aria-label="System architecture">
+        <li><span>01</span><strong>Operator prompt</strong></li>
+        <li><span>02</span><strong>Python chat or Claude Desktop</strong></li>
+        <li><span>03</span><strong>Typed MCP tool call</strong></li>
+        <li><span>04</span><strong>Deterministic safety gate</strong></li>
+        <li><span>05</span><strong>ROS skills and behavior trees</strong></li>
+        <li><span>06</span><strong>PX4 / drone</strong></li>
+      </ol>
+    </section>
+
+    <section class="capabilities" aria-labelledby="capabilities-title">
+      <div class="section-heading">
+        <p class="section-label">Current interface</p>
+        <h2 id="capabilities-title">What the operator can ask for</h2>
+      </div>
+      <dl class="capability-list">
+        <div>
+          <dt>State</dt>
+          <dd>Read drone state and telemetry.</dd>
+        </div>
+        <div>
+          <dt>Flight</dt>
+          <dd>Takeoff, landing, and return-to-launch.</dd>
+        </div>
+        <div>
+          <dt>Motion</dt>
+          <dd>Relative movement forward, backward, left, right, up, and down by a requested distance; yaw by a requested angle.</dd>
+        </div>
+        <div>
+          <dt>Camera</dt>
+          <dd>Gimbal pitch/yaw control, image capture, and continuous capture.</dd>
+        </div>
+        <div>
+          <dt>Coordination</dt>
+          <dd>Point one drone toward another using their relative positions.</dd>
+        </div>
+        <div>
+          <dt>Missions</dt>
+          <dd>Start, monitor, and stop existing behavior-tree missions.</dd>
+        </div>
+      </dl>
+      <p class="gate-note">
+        The gate checks connection, airborne state, movement and altitude ranges,
+        battery, gimbal limits, and the configured operating fence.
+      </p>
+    </section>
+
+    <section id="experiment" class="section experiment">
+      <div class="section-heading">
+        <p class="section-label">First real-world experiment</p>
+        <h2>Two physical drones, one operator, two interfaces</h2>
+        <p>
+          The complete system was exercised with two physical drones through the
+          custom Python chat and Claude Desktop using the same MCP tool server.
+        </p>
+      </div>
+
+      <div class="video-shell">
+        <video controls preload="metadata" poster="assets/field-test-poster.jpg">
+          <source src="assets/field-test-demo.mp4" type="video/mp4">
+          Your browser does not support the video element.
+        </video>
+        <div class="video-meta">
+          <div>
+            <strong>Field-test demonstration</strong>
+            <span>Operator interaction with physical drone response</span>
+          </div>
+          <a class="video-link" href="https://drive.google.com/file/d/1_zPsYfUP-ygMsipcDQyDrtAIv74Td3Dw/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open on Google Drive</a>
+        </div>
+      </div>
+
+      <div class="experiment-body">
+        <p>
+          The demonstration covered takeoff and landing, directional and vertical
+          motion, camera pitch and yaw, image capture, return-to-launch, and a
+          coordinated command in which one drone oriented itself and its camera
+          toward the other. Commands that did not match reported vehicle state
+          could be rejected before reaching the flight stack.
+        </p>
+        <ul class="tested">
+          <li>Two-drone takeoff and landing</li>
+          <li>Directional and vertical movement by distance</li>
+          <li>Camera pitch and yaw control</li>
+          <li>Image capture from both vehicles</li>
+          <li>One drone oriented toward the other</li>
+          <li>Return-to-launch and telemetry feedback</li>
+        </ul>
+      </div>
+
+      <div class="camera-gallery">
+        <figure>
+          <img src="assets/drone-0-camera.jpg" alt="Field-test building viewed from the camera of drone 0">
+          <figcaption><strong>Drone 0</strong> Saved camera frame during the experiment</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/drone-1-camera.jpg" alt="Field-test building and team viewed from the camera of drone 1">
+          <figcaption><strong>Drone 1</strong> Saved camera frame during the experiment</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="progress" class="section progress">
+      <div class="section-heading">
+        <p class="section-label">Work completed</p>
+        <h2>From prototype to a reproducible system</h2>
+      </div>
+      <ol class="progress-list">
+        <li><span>01</span><div><strong>Reusable skill layer</strong><p>Built over the existing ROS/PX4 drone interfaces.</p></div></li>
+        <li><span>02</span><div><strong>Safety gate and audit log</strong><p>Deterministic checks with JSONL request and decision records.</p></div></li>
+        <li><span>03</span><div><strong>Agent ROS service</strong><p>Exposes gated skills through a single agent endpoint.</p></div></li>
+        <li><span>04</span><div><strong>Host-side MCP server</strong><p>Typed schemas for each supported capability.</p></div></li>
+        <li><span>05</span><div><strong>Operator interfaces</strong><p>Python chat plus Claude Desktop and Claude Code.</p></div></li>
+        <li><span>06</span><div><strong>Field validation</strong><p>Simulation bring-up and a two-drone real-world experiment.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="status" class="status">
+      <p class="section-label">Current status</p>
+      <h2>Operational in simulation and demonstrated on two real drones.</h2>
+      <p>
+        The current phase is focused on systematic evaluation, efficiency, and
+        additional safety and verification mechanisms.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Natural-Language Control for Multi-Drone Systems</strong></p>
+    <p>Internal project page</p>
+  </footer>
+</body>
+</html>
