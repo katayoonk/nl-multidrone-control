@@ -272,6 +272,11 @@ h2 {
 }
 
 .architecture img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
   border: 1px solid var(--line);
   background: #0b1120;
 }

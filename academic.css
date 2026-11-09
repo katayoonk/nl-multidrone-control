@@ -95,6 +95,10 @@ li {
 .architecture img {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
   border: 1px solid #ddd;
   background: #0b1120;
 }
